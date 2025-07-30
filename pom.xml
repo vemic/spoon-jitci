@@ -5,20 +5,41 @@
                              http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.example</groupId>
+    <groupId>com.github.vemic</groupId>
     <artifactId>spoon-jitci</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
 
     <name>Spoon JITCI Project</name>
     <description>A Maven project using Spoon 11.2.1</description>
+    <url>https://github.com/vemic/spoon-jitci</url>
+
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>https://opensource.org/licenses/MIT</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <id>vemic</id>
+            <name>vemic</name>
+            <url>https://github.com/vemic</url>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:git://github.com/vemic/spoon-jitci.git</connection>
+        <developerConnection>scm:git:ssh://github.com:vemic/spoon-jitci.git</developerConnection>
+        <url>https://github.com/vemic/spoon-jitci/tree/main</url>
+    </scm>
 
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spoon.version>11.2.1</spoon.version>
-        <junit.version>5.10.0</junit.version>
     </properties>
 
     <dependencies>
@@ -27,20 +48,6 @@
             <groupId>fr.inria.gforge.spoon</groupId>
             <artifactId>spoon-core</artifactId>
             <version>${spoon.version}</version>
-        </dependency>
-
-        <!-- JUnit 5 for testing -->
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-engine</artifactId>
-            <version>${junit.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
-            <version>${junit.version}</version>
-            <scope>test</scope>
         </dependency>
     </dependencies>
 
@@ -57,23 +64,47 @@
                 </configuration>
             </plugin>
 
-            <!-- Maven Surefire Plugin for running tests -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.1.2</version>
-                <configuration>
-                    <useSystemClassLoader>false</useSystemClassLoader>
-                </configuration>
-            </plugin>
-
             <!-- Maven Exec Plugin for running main class -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>3.1.0</version>
                 <configuration>
-                    <mainClass>com.example.SpoonExample</mainClass>
+                    <mainClass>com.example.Main</mainClass>
+                </configuration>
+            </plugin>
+
+            <!-- Maven Source Plugin for JitPack -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.3.0</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Maven Javadoc Plugin for JitPack -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.6.0</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <source>21</source>
+                    <detectJavaApiLink>false</detectJavaApiLink>
                 </configuration>
             </plugin>
         </plugins>
